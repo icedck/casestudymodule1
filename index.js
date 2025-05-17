@@ -177,7 +177,7 @@ const key_codes = {
     Down: "ArrowDown",
 };
 
-const white_color_id = 7;   //biến index lưu lại vị trí màu
+const white_color_id = 7;   //biến index lưu lại vị trí màu trắng
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
@@ -194,6 +194,9 @@ class Board {
         this.audio = new Audio("sound1.wav");
         this.audioGameOver = new Audio("gameover.mp3");
         this.audioPlay = new Audio("btnplay.mp3");
+        this.highScore = localStorage.getItem("tetrisHighScore") || 0;
+        document.getElementById("high-score").innerText = this.highScore;
+
     }
 
     reset(){
@@ -202,17 +205,21 @@ class Board {
         this.gameOver=false;
         this.audioPlay.play();
         this.drawBoard();
+        document.getElementById("high-score").innerText = this.highScore;
+
     }
 
     generateWhiteBoard() {
         return Array.from({length: rows}, () => Array(cols).fill(white_color_id));
     }
+
     drawCell(xAxis, yAxis, colorId){
         this.ctx.fillStyle = color_mapping[colorId] || color_mapping[white_color_id];
         this.ctx.fillRect(xAxis * block_size, yAxis * block_size, block_size, block_size);
         this.ctx.fillStyle="black";
         this.ctx.strokeRect(xAxis * block_size, yAxis * block_size, block_size, block_size);
     }
+
     drawBoard(){
         for (let row =0;row<this.grid.length;row++){
             for (let col =0;col<this.grid[0].length;col++){
@@ -239,7 +246,13 @@ class Board {
 
     handleScore(newScore) {
         this.score += newScore;
-        document.getElementById("score").innerHTML = this.score;
+        document.getElementById("score").innerText = this.score;
+
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            localStorage.setItem("tetrisHighScore", this.highScore);
+            document.getElementById("high-score").innerText = this.highScore;
+        }
     }
 
     handleGameOver(){
@@ -355,7 +368,7 @@ class Brick{
 }
 
 function generateNewBrick(){
-    brick = new Brick(Math.floor(Math.random() * 10) % brick_layout.length); // tao ra 1 id bat ki nam tu 0 -> 6
+    brick = new Brick(Math.floor(Math.random() * 10) % brick_layout.length);    // tao ra 1 id bat ki nam tu 0 -> 6
 }
 
 board = new Board(ctx);

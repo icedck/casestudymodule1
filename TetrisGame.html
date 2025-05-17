@@ -15,6 +15,7 @@
         <div>
             <h1>TETRIS</h1>
             <p>Score: <span id="score">0</span></p>
+            <p>High Score: <span id="high-score">0</span></p>
         </div>
         <button class="play-btn" id="play">Play</button>
         <button class="play-btn" onclick="openModal()">How to play</button>
@@ -24,11 +25,8 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal()">×</span>
         <h2>Hướng dẫn</h2>
-        <pre>Một nhóm 4 khối sẽ rơi từ phía trên cùng của màn hình, di chuyển các khối
-            và xoay chúng cho đến khi chúng rơi xuống phía dưới cùng của
-            màn hình, sau đó nhóm 4 khối tiếp theo sẽ rơi xuống.
-            Nếu để cho những khối hình cao quá màn hình, trò chơi sẽ kết
-            thúc.
+        <pre>Một nhóm 4 khối sẽ rơi từ phía trên cùng của màn hình, di chuyển các khối và xoay chúng cho đến khi chúng rơi xuống phía dưới cùng của màn hình, sau đó nhóm 4 khối tiếp theo sẽ rơi xuống.
+            Nếu để cho những khối hình cao quá màn hình, trò chơi sẽ kết thúc.
             Trò chơi kết thúc khi khối gạch không rơi xuống được nữa.
             Phím tắt:
             Phím mũi tên lên: xoay khối.
